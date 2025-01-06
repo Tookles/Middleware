@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MiddlewareApp.DTO;
 using MiddlewareApp.Model.Entity;
 using MiddlewareApp.Service;
 using System.Runtime.InteropServices.JavaScript;
@@ -35,12 +36,13 @@ namespace MiddlewareApp.Controllers
         [HttpPost]
         public IActionResult AddAdventurer([FromBody] AdventurerDTO adventurerDTO)
         {
-            if (!adventurerDTO.Success)
+            AdventurerDTOWrapper userInputParse = new AdventurerDTOWrapper(adventurerDTO);
+            if (!userInputParse.Success)
             {
-                return BadRequest(adventurerDTO.Message);
+                return BadRequest(userInputParse.Message);
             }
-            _adventurersService.AddAdventurer(adventurerDTO.Result); 
-            return Created("/adventurers", $"{adventurerDTO.Result.Name} has been added");
+            _adventurersService.AddAdventurer(userInputParse.Result); 
+            return Created("/adventurers", $"{userInputParse.Result.Name} has been added");
             
         }
 
