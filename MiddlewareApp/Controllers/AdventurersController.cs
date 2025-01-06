@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiddlewareApp.DTO;
 using MiddlewareApp.Model.Entity;
 using MiddlewareApp.Service;
-using System.Runtime.InteropServices.JavaScript;
 
 
 namespace MiddlewareApp.Controllers
@@ -33,17 +31,17 @@ namespace MiddlewareApp.Controllers
             return Ok(returnAdventurers);
         }
 
+
         [HttpPost]
-        public IActionResult AddAdventurer([FromBody] AdventurerDTO adventurerDTO)
+        public IActionResult AddAdventurer([FromBody] Adventurer userAdventurer)
         {
-            AdventurerDTOWrapper userInputParse = new AdventurerDTOWrapper(adventurerDTO);
-            if (!userInputParse.Success)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(userInputParse.Message);
+                return BadRequest("This is a bad result");
             }
-            _adventurersService.AddAdventurer(userInputParse.Result); 
-            return Created("/adventurers", $"{userInputParse.Result.Name} has been added");
-            
+
+            _adventurersService.AddAdventurer(userAdventurer);
+            return Created("/adventurers", $"{userAdventurer.Name} has been added");
         }
 
 

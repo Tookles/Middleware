@@ -65,5 +65,19 @@ namespace MiddlewareApp.Tests.ServiceTests
         }
 
 
+        [Test]
+        public void AddAdventurer_CallsCorrectMethod()
+        {
+            Adventurer newAdventurer = new Adventurer("Jonno", 0);
+
+            _adventurersService.AddAdventurer(newAdventurer);
+
+            _adventurersRepositoryMock.Verify(repo => repo.AddAdventurer(newAdventurer), Times.Once); 
+
+    
+        }
+
+
+
     }
 }

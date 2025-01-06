@@ -11,7 +11,7 @@ using MiddlewareApp.Database;
 namespace MiddlewareApp.Migrations
 {
     [DbContext(typeof(ThisDbContext))]
-    [Migration("20250106105708_InitialCreate")]
+    [Migration("20250106162103_Initial-Create")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,7 +49,11 @@ namespace MiddlewareApp.Migrations
 
                     b.ToTable("Adventurers", t =>
                         {
+                            t.HasCheckConstraint("CK_Adventurers_FightingClass_MinLength", "LEN([FightingClass]) >= 1");
+
                             t.HasCheckConstraint("CK_Adventurers_Level_Range", "[Level] BETWEEN 1 AND 2147483647");
+
+                            t.HasCheckConstraint("CK_Adventurers_Name_MinLength", "LEN([Name]) >= 1");
 
                             t.HasCheckConstraint("CK_Adventurers_XP_Range", "[XP] BETWEEN 0 AND 2147483647");
                         });

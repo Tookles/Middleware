@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MiddlewareApp.Database;
 using MiddlewareApp.Middleware;
@@ -28,12 +29,17 @@ namespace MiddlewareApp
 
 
             builder.Services.AddTransient<LoggerMiddleware>(); 
+            builder.Services.AddTransient<ValidateNameMiddleware>();
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
+            //app.UseMiddleware<EnableRequestBodyBufferingMiddleware>(); 
+            
             app.UseMiddleware<LoggerMiddleware>();
+            app.UseMiddleware<ValidateNameMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {

@@ -12,8 +12,11 @@ namespace MiddlewareApp.Model.Entity
     {
         public long Id { get; set; }
 
+        [Required(ErrorMessage = "No Name provided")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "FightingClass is required")]
+        [Range(0, 3, ErrorMessage = "This is not a valid Fighting Class")]
         public FightingClass FightingClass { get; set; }
 
         [Range(1, int.MaxValue)]

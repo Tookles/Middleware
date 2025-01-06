@@ -13,12 +13,14 @@ namespace MiddlewareApp.Service
 
     public class AdventurersService : IAdventurersService
     {
+        
         private readonly IAdventurersRepository _adventurersModel;
 
         public AdventurersService(IAdventurersRepository adventurersModel)
         {
             _adventurersModel = adventurersModel;
         }
+
 
         public List<Adventurer> GetAllAdventurers()
         {
@@ -29,6 +31,7 @@ namespace MiddlewareApp.Service
         {
             _adventurersModel.AddAdventurer(adventurer);
         }
+
 
 
     }

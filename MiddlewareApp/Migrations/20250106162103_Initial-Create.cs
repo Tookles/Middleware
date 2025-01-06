@@ -24,7 +24,9 @@ namespace MiddlewareApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Adventurers", x => x.Id);
+                    table.CheckConstraint("CK_Adventurers_FightingClass_MinLength", "LEN([FightingClass]) >= 1");
                     table.CheckConstraint("CK_Adventurers_Level_Range", "[Level] BETWEEN 1 AND 2147483647");
+                    table.CheckConstraint("CK_Adventurers_Name_MinLength", "LEN([Name]) >= 1");
                     table.CheckConstraint("CK_Adventurers_XP_Range", "[XP] BETWEEN 0 AND 2147483647");
                 });
         }
