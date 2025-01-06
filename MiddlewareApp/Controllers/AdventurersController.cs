@@ -45,6 +45,30 @@ namespace MiddlewareApp.Controllers
         }
 
 
+        [HttpPatch("{id}")]
+        public IActionResult ModAdventurer(int id, [FromBody] UpdateAdventurerWrapper userInput)
+        {
+            if (_adventurersService.UpdateAdventurer(id, userInput))
+            {
+                return Ok();
+            } else
+            {
+                return BadRequest(); 
+            }
+        }
+
+
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAdventurer(int id)
+        {
+            if (_adventurersService.DeleteAdventurer(id))
+            {
+                return NoContent();
+            }
+            return BadRequest();
+        }
+
 
     }
 }

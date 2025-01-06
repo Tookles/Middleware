@@ -35,8 +35,6 @@ namespace MiddlewareApp
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
-
-            //app.UseMiddleware<EnableRequestBodyBufferingMiddleware>(); 
             
             app.UseMiddleware<LoggerMiddleware>();
             app.UseMiddleware<ValidateNameMiddleware>();

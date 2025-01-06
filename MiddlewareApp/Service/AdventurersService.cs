@@ -9,6 +9,10 @@ namespace MiddlewareApp.Service
 
         public void AddAdventurer(Adventurer adventurer);
 
+        public Boolean DeleteAdventurer(int adventurerId);
+
+        public Boolean UpdateAdventurer(int id, UpdateAdventurerWrapper adventurerMod); 
+
     }
 
     public class AdventurersService : IAdventurersService
@@ -32,6 +36,36 @@ namespace MiddlewareApp.Service
             _adventurersModel.AddAdventurer(adventurer);
         }
 
+        public Boolean DeleteAdventurer(int adventurerId)
+        {
+            if (_adventurersModel.CheckAdventurerExists(adventurerId))
+            {
+                _adventurersModel.DeleteAdventurer(adventurerId);
+                return true;
+            }
+            return false; 
+        }
+
+
+        public Boolean UpdateAdventurer(int id, UpdateAdventurerWrapper adventurerMod)
+        {
+            if (_adventurersModel.CheckAdventurerExists(id))
+            {
+                if (adventurerMod.property == Property.XP)
+                {
+                    _adventurersModel.UpdateAdventurerXP(id, adventurerMod.amount);
+                    return true;
+
+                }
+                else if (adventurerMod.property == Property.LEVEL)
+                {
+                    _adventurersModel.UpdateAdventurerLevel(id, adventurerMod.amount);
+                    return true;
+                }
+            }
+            return false; 
+
+        }
 
 
     }

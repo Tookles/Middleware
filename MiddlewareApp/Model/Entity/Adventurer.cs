@@ -22,7 +22,7 @@ namespace MiddlewareApp.Model.Entity
         [Range(1, int.MaxValue)]
         public int Level { get; set; } = 1;
 
-        [Range(0, int.MaxValue)]
+        [Range(0, 100)]
         public int XP { get; set; } = 0; 
 
 
@@ -32,6 +32,20 @@ namespace MiddlewareApp.Model.Entity
             FightingClass = fightingClass;
         }
 
+
+        public void GainXP(int changeInXP)
+        {
+            int tempXP = this.XP + changeInXP; 
+            if (tempXP < 100) 
+            {
+                this.XP = tempXP;
+            } else
+            {
+                this.Level += 1;
+                tempXP -= 100; 
+                this.GainXP(tempXP);
+            }
+        }
 
     }
 }
